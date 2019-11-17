@@ -27,6 +27,24 @@ public class CardOrderTests {
         $("button").click();
         $(".input_invalid").shouldHave(Condition.text("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы."));
     }
+    @Test
+    @DisplayName("Должен указывать на ошибку при пустом поле имени")
+    void shouldNotSubmitWithEmptyName() {
+        open("http://localhost:9999/");
+        $("[data-test-id=phone] input.input__control").setValue("+79991112233");
+        $("[data-test-id=agreement]").click();
+        $("button").click();
+        $(".input_invalid").shouldHave(Condition.text("Поле обязательно для заполнения"));
+    }
 
+    @Test
+    @DisplayName("Должен указывать на ошибку при пустом поле номера телефона")
+    void shouldNotSubmitWithEmptyPhone() {
+        open("http://localhost:9999/");
+        $("[data-test-id=name] input.input__control").setValue("Иванов Иван");
+        $("[data-test-id=agreement]").click();
+        $("button").click();
+        $(".input_invalid").shouldHave(Condition.text("Поле обязательно для заполнения"));
+    }
 
 }
